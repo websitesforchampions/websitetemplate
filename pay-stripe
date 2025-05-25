@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Payment - My Website</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    nav { background: #333; padding: 10px; }
+    nav a { color: white; margin: 0 10px; text-decoration: none; }
+    .container { max-width: 400px; margin: auto; }
+    h1 { text-align: center; }
+    .summary { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; }
+    button {
+      background-color: #6772e5;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #5469d4;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="payment.html">Payment</a>
+  </nav>
+
+  <div class="container">
+    <h1>Payment</h1>
+    <div class="summary">
+      <h2>Order Summary</h2>
+      <p>Items: 3</p>
+      <p>Total: $297</p>
+    </div>
+
+    <button onclick="window.location.href='https://buy.stripe.com/test_XXXXXXXXXXXXXXXXXX';">
+      Pay with Stripe
+    </button>
+  </div>
+</body>
+</html>
