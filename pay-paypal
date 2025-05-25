@@ -48,3 +48,28 @@
   </div>
 </body>
 </html>
+// Save cart to localStorage
+function saveCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Load cart from localStorage
+function loadCart() {
+  const storedCart = localStorage.getItem('cart');
+  if (storedCart) {
+    cart.splice(0, cart.length, ...JSON.parse(storedCart)); // Replace cart contents
+  }
+}
+
+// Update addToCart to save cart after adding
+function addToCart(productId) {
+  const product = products.find(p => p.id === productId);
+  cart.push(product);
+  saveCart();
+  renderCart();
+}
+
+// On page load:
+loadCart();
+renderCart();
+renderProducts();
