@@ -4,12 +4,104 @@
   <meta charset="UTF-8" />
   <title>Shop - My Website</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
-    nav { background: #333; padding: 10px; }
-    nav a { color: white; margin: 0 10px; text-decoration: none; }
-    .search-box { margin-bottom: 20px; }
-    .product { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
-    .cart { border: 1px solid #000; padding: 10px; margin-top: 30px; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0 20px 80px;
+      background-color: #f9f9f9;
+    }
+
+    nav {
+      background: #333;
+      padding: 10px;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+    .search-box {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .search-box input {
+      padding: 10px;
+      width: 60%;
+      font-size: 16px;
+    }
+
+    #product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .product:hover {
+      transform: scale(1.02);
+    }
+
+    .product img {
+      max-width: 100%;
+      height: 150px;
+      object-fit: contain;
+      margin-bottom: 10px;
+    }
+
+    .product button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .product button:hover {
+      background: #218838;
+    }
+
+    .cart {
+      border: 1px solid #000;
+      background-color: #fff;
+      padding: 15px;
+      margin-top: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .cart h2 {
+      margin-top: 0;
+    }
+
+    .cart ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .cart li {
+      padding: 5px 0;
+      border-bottom: 1px solid #ddd;
+    }
   </style>
 </head>
 <body>
@@ -35,19 +127,24 @@
 
   <script>
     const products = [
-      { id: 1, name: "Laptop", price: 999 },
-      { id: 2, name: "Headphones", price: 199 },
-      { id: 3, name: "Keyboard", price: 49 },
-      { id: 4, name: "Mouse", price: 29 },
-      { id: 5, name: "Monitor", price: 249 }
+      { id: 1, name: "Laptop", price: 999, image: "https://via.placeholder.com/200?text=Laptop" },
+      { id: 2, name: "Headphones", price: 199, image: "https://via.placeholder.com/200?text=Headphones" },
+      { id: 3, name: "Keyboard", price: 49, image: "https://via.placeholder.com/200?text=Keyboard" },
+      { id: 4, name: "Mouse", price: 29, image: "https://via.placeholder.com/200?text=Mouse" },
+      { id: 5, name: "Monitor", price: 249, image: "https://via.placeholder.com/200?text=Monitor" }
     ];
 
-    const cart = [];
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     function addToCart(productId) {
       const product = products.find(p => p.id === productId);
       cart.push(product);
+      saveCart();
       renderCart();
+    }
+
+    function saveCart() {
+      localStorage.setItem("cart", JSON.stringify(cart));
     }
 
     function renderProducts() {
@@ -63,8 +160,9 @@
         const div = document.createElement("div");
         div.className = "product";
         div.innerHTML = `
-          <strong>${product.name}</strong><br>
-          $${product.price}<br>
+          <img src="${product.image}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>$${product.price.toFixed(2)}</p>
           <button onclick="addToCart(${product.id})">Add to Cart</button>
         `;
         list.appendChild(div);
@@ -74,15 +172,15 @@
     function renderCart() {
       const list = document.getElementById("cart-items");
       list.innerHTML = "";
-      cart.forEach((item, index) => {
+      cart.forEach(item => {
         const li = document.createElement("li");
-        li.textContent = `${item.name} - $${item.price}`;
+        li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
         list.appendChild(li);
       });
     }
 
-    // Initial load
     renderProducts();
+    renderCart();
   </script>
 </body>
 </html>
