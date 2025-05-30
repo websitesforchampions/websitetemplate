@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Payment Options</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script> <!-- Replace with your PayPal client ID -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 30px;
+    }
+    .payment-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    button, .paypal-buttons-container {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      color: white;
+    }
+    button {
+      background-color: #6772e5; /* Stripe-like blue */
+    }
+    button:hover {
+      background-color: #5469d4;
+    }
+    .square-button {
+      background-color: #3a86ff;
+    }
+    .square-button:hover {
+      background-color: #2669d1;
+    }
+    .zelle-button {
+      background-color: #28a745;
+    }
+    .zelle-button:hover {
+      background-color: #1e7e34;
+    }
+    #paypal-button-container {
+      min-width: 150px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Pay via:</h2>
+
+  <div class="payment-buttons">
+
+    <!-- PayPal Button -->
+    <div id="paypal-button-container" class="paypal-buttons-container"></div>
+
+    <!-- Stripe Button -->
+    <button id="stripe-button">Pay with Stripe</button>
+
+    <!-- Square Button -->
+    <button id="square-button" class="square-button">Pay with Square</button>
+
+    <!-- Zelle Button (simple instructions or link) -->
+    <button id="zelle-button" class="zelle-button">Pay with Zelle</button>
+
+  </div>
+
+  <script>
+    // -------- PAYPAL BUTTON --------
+    paypal.Buttons({
+      style: {
+        layout: 'vertical',
+        shape: 'rect',
+      },
+      createOrder: function(data, actions) {
+        // Set up transaction details here or via your server
+        return actions.order.create({
+          purchase_units: [{
+            amount: { value: '10.00' } // Change to your amount
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('Transaction completed by ' + details.payer.name.given_name);
+        });
+      }
+    }).render('#paypal-button-container');
+
+
+    // -------- STRIPE BUTTON --------
+    const stripe = Stripe('pk_test_YourPublicKeyHere'); // Replace with your Stripe public key
+    document.getElementById('stripe-button').addEventListener('click', () => {
+      // In real use, you'd call your backend to create a checkout session, here's a placeholder
+      alert('You would be redirected to Stripe Checkout here.');
+      // Example redirect (replace sessionId):
+      // stripe.redirectToCheckout({ sessionId: 'your_session_id_here' });
+    });
+
+
+    // -------- SQUARE BUTTON --------
+    document.getElementById('square-button').addEventListener('click', () => {
+      alert('Integrate Square Payment Form or redirect to your Square hosted checkout here.');
+      // For real use, implement Square's Web Payments SDK or redirect to a Square payment page.
+    });
+
+
+    // -------- ZELLE BUTTON --------
+    document.getElementById('zelle-button').addEventListener('click', () => {
+      alert('Send your payment via Zelle to: your-email@example.com');
+      // Or display your Zelle instructions / info
+    });
+  </script>
+
+</body>
+</html>
