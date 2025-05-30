@@ -2,23 +2,89 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Contact - My Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - My Website</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    nav { background: #333; padding: 10px; }
-    nav a { color: white; margin: 0 10px; text-decoration: none; }
-    main { padding: 20px; }
+    /* Include same styles as the Home page */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    nav {
+      background-color: #222;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 5px;
+      background-color: #555;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #f4a261;
+    }
+
+    main {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
   </style>
 </head>
 <body>
+
+  <header>
+    <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+  </header>
+
+  <!-- Navigation bar with links to other pages -->
   <nav>
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
+    <a href="payments.html">Payments</a>
   </nav>
+
+  <!-- Content of the About page -->
   <main>
-    <h1>Contact Us</h1>
-    <p>You can add an email address, phone number, or a contact form here.</p>
+    <h1>About Us</h1>
+    <p>Learn more about our company, our mission, and our vision.</p>
   </main>
+
+  <footer>
+    <p>&copy; 2025 My Website | All Rights Reserved</p>
+  </footer>
+
 </body>
 </html>
