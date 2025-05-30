@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About - My Website</title>
+  <title>Contact - My Website</title>
   <style>
-    /* Include same styles as the Home page */
+    /* Same styles as other pages */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -76,10 +76,12 @@
     <a href="payments.html">Payments</a>
   </nav>
 
-  <!-- Content of the About page -->
+  <!-- Content of the Contact page -->
   <main>
-    <h1>About Us</h1>
-    <p>Learn more about our company, our mission, and our vision.</p>
+    <h1>Contact Us</h1>
+    <p>Here is how you can get in touch with us:</p>
+    <p>Email: contact@mywebsite.com</p>
+    <p>Phone: (123) 456-7890</p>
   </main>
 
   <footer>
