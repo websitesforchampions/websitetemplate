@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog & Updates - My Website</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #333;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    nav {
+      background-color: #222;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 5px;
+      background-color: #555;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #f4a261;
+    }
+
+    main {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .blog-post {
+      background-color: white;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .blog-post h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .blog-post p {
+      color: #555;
+    }
+
+    .blog-post .date {
+      font-size: 0.9em;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo">
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About</a>
+    <a href="blog.html">Updates</a>
+  </nav>
+
+  <main>
+    <h1>Latest News & Updates</h1>
+
+    <div class="blog-post">
+      <h2>🎉 New Product Launch: Wireless Keyboard</h2>
+      <div class="date">Posted on May 28, 2025</div>
+      <p>We’ve just added a brand new wireless keyboard to our store — lightweight, stylish, and long battery life. Check it out in the Shop section!</p>
+    </div>
+
+    <div class="blog-post">
+      <h2>📦 Shipping Times Improved</h2>
+      <div class="date">Posted on May 15, 2025</div>
+      <p>We've optimized our delivery process and partnered with faster carriers. Expect most orders within 3–5 business days now!</p>
+    </div>
+
+    <div class="blog-post">
+      <h2>💬 Got Questions? Visit Our New FAQ Section</h2>
+      <div class="date">Posted on April 30, 2025</div>
+      <p>We’ve added a helpful FAQ to our Contact page to answer the most common questions about payments, returns, and more.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Website | All Rights Reserved</p>
+  </footer>
+
+</body>
+</html>
