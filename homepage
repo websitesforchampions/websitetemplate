@@ -2,23 +2,96 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home - My Website</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    nav { background: #333; padding: 10px; }
-    nav a { color: white; margin: 0 10px; text-decoration: none; }
-    main { padding: 20px; }
+    /* Global styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4; /* Light gray background color */
+    }
+
+    /* Header with logo */
+    header {
+      background-color: #333; /* Dark background for the header */
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Logo image styling */
+    .logo {
+      height: 40px; /* Adjust size of the logo */
+    }
+
+    /* Navigation bar styling */
+    nav {
+      background-color: #222; /* Darker background for the navbar */
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 5px;
+      background-color: #555; /* Button-style background */
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #f4a261; /* Light color on hover */
+    }
+
+    /* Main content */
+    main {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
   </style>
 </head>
 <body>
+
+  <header>
+    <!-- Logo in the header -->
+    <img src="https://via.placeholder.com/150x40" alt="Logo" class="logo"> <!-- Example logo -->
+  </header>
+
+  <!-- Navigation bar with links to different pages -->
   <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
+    <a href="index.html">Home</a> <!-- Link to Home page -->
+    <a href="about.html">About</a> <!-- Link to About page -->
+    <a href="contact.html">Contact</a> <!-- Link to Contact page -->
+    <a href="payments.html">Payments</a> <!-- Link to Payments page -->
   </nav>
+
+  <!-- Main content of the Home page -->
   <main>
     <h1>Welcome to My Website</h1>
-    <p>This is a general-purpose home page. Customize it for your needs.</p>
+    <p>This is the home page. Customize it for your needs.</p>
   </main>
+
+  <footer>
+    <p>&copy; 2025 My Website | All Rights Reserved</p>
+  </footer>
+
 </body>
 </html>
