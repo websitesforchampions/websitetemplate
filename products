@@ -1,125 +1,226 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Secure Checkout</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
+  <meta charset="UTF-8">
+  <title>Product Page with Cart</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 40px auto;
-      text-align: center;
-    }
-    h2 {
-      margin-bottom: 20px;
-    }
-    .summary {
-      text-align: left;
-      background: #f9f9f9;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    .summary ul {
-      list-style: none;
+      margin: 0;
       padding: 0;
+      background-color: #f5f5f5;
     }
-    .summary li {
-      padding: 6px 0;
-      border-bottom: 1px solid #ddd;
+    nav {
+      background-color: #333;
+      padding: 10px;
     }
-    .total {
-      margin-top: 15px;
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
       font-weight: bold;
     }
-    .payment-button {
-      padding: 15px;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      color: white;
-      cursor: pointer;
-      text-decoration: none;
-      margin: 12px 0;
-      display: block;
+    .container {
+      padding: 30px;
+      max-width: 900px;
+      margin: auto;
     }
-    .stripe-btn { background-color: #6772e5; }
-    .square-btn { background-color: #3a86ff; }
-    .zelle-btn  { background-color: #28a745; }
+    .product-container {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      gap: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .product-container img {
+      width: 300px;
+      height: auto;
+      border-radius: 8px;
+    }
+    .product-info h2 {
+      margin-top: 0;
+    }
+    .product-info input[type="number"] {
+      width: 60px;
+      padding: 5px;
+      margin: 10px 0;
+    }
+    .product-info button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .product-info button:hover {
+      background-color: #218838;
+    }
+    .cart-section {
+      background: white;
+      border-radius: 8px;
+      margin-top: 40px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .cart-section h3 {
+      margin-top: 0;
+    }
+    .cart-item {
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .remove-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .remove-btn:hover {
+      background: #c82333;
+    }
+    .total {
+      text-align: right;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .hidden {
+      display: none;
+    }
+    .proceed-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .proceed-btn:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
 
-  <h2>Checkout</h2>
+  <nav>
+    <a href="#" onclick="showPage('product')">Product</a>
+    <a href="#" onclick="showPage('cart')">Cart</a>
+  </nav>
 
-  <div class="summary" id="cart-summary">
-    <p>Loading your cart...</p>
+  <div class="container">
+
+    <!-- PRODUCT PAGE -->
+    <div id="product-page" class="product-container">
+      <img src="https://via.placeholder.com/300x200?text=Laptop" alt="Laptop">
+      <div class="product-info">
+        <h2>Laptop</h2>
+        <p>A high-performance laptop perfect for work and gaming. Features long battery life and sleek design.</p>
+        <p><strong>Price:</strong> $999</p>
+        <label>Quantity:</label><br>
+        <input type="number" id="quantity" value="1" min="1"><br>
+        <button onclick="addToCart()">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- CART PAGE -->
+    <div id="cart-page" class="cart-section hidden">
+      <h3>Your Cart</h3>
+      <div id="cart-items"></div>
+      <div class="total" id="cart-total"></div>
+      <!-- Proceed to Payment button will be added here dynamically -->
+    </div>
+
   </div>
 
-  <div id="paypal-button-container" style="margin: 30px 0;"></div>
-
-  <a id="stripe-link" class="payment-button stripe-btn" target="_blank">Pay with Stripe</a>
-  <a id="square-link" class="payment-button square-btn" target="_blank">Pay with Square</a>
-  <button class="payment-button zelle-btn" id="zelle-button">Pay with Zelle</button>
-
   <script>
-    // Read cart from localStorage
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const summary = document.getElementById("cart-summary");
-    const stripeLink = document.getElementById("stripe-link");
-    const squareLink = document.getElementById("square-link");
-    const zelleBtn = document.getElementById("zelle-button");
+    function showPage(page) {
+      document.getElementById('product-page').classList.add('hidden');
+      document.getElementById('cart-page').classList.add('hidden');
 
-    let total = 0;
-    let description = "";
-
-    if (cart.length === 0) {
-      summary.innerHTML = "<p>Your cart is empty.</p>";
-    } else {
-      const list = cart.map(item => {
-        const subtotal = item.price * item.quantity;
-        total += subtotal;
-        return `<li>${item.name} x${item.quantity} — $${subtotal.toFixed(2)}</li>`;
-      }).join("");
-
-      description = cart.map(item => `${item.name} x${item.quantity}`).join(", ");
-
-      summary.innerHTML = `
-        <ul>${list}</ul>
-        <div class="total">Total: $${total.toFixed(2)}</div>
-      `;
+      if (page === 'product') {
+        document.getElementById('product-page').classList.remove('hidden');
+      } else {
+        renderCart();
+        document.getElementById('cart-page').classList.remove('hidden');
+      }
     }
 
-    // PayPal Button
-    paypal.Buttons({
-      createOrder: function(data, actions) {
-        return actions.order.create({
-          purchase_units: [{
-            description: description,
-            amount: { value: total.toFixed(2) }
-          }]
-        });
-      },
-      onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-          alert('Payment completed by ' + details.payer.name.given_name);
-          localStorage.removeItem("cart");
-        });
+    function addToCart() {
+      const quantity = parseInt(document.getElementById("quantity").value);
+      const product = {
+        id: 1,
+        name: "Laptop",
+        price: 999,
+        image: "https://via.placeholder.com/300x200?text=Laptop",
+        quantity: quantity
+      };
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      const existing = cart.find(item => item.id === product.id);
+      if (existing) {
+        existing.quantity += quantity;
+      } else {
+        cart.push(product);
       }
-    }).render('#paypal-button-container');
 
-    // Stripe/Square Links (static links, dynamic query optional)
-    const encodedDescription = encodeURIComponent(description);
-    const encodedTotal = total.toFixed(2);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`Added ${quantity} Laptop(s) to your cart.`);
+    }
 
-    stripeLink.href = `https://buy.stripe.com/test_YOUR_LINK?desc=${encodedDescription}&amt=${encodedTotal}`;
-    squareLink.href = `https://square.link/u/YOUR_SQUARE_LINK?desc=${encodedDescription}&amt=${encodedTotal}`;
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartContainer = document.getElementById("cart-items");
+      const totalContainer = document.getElementById("cart-total");
+      cartContainer.innerHTML = "";
+      totalContainer.innerHTML = "";
+      let total = 0;
 
-    zelleBtn.onclick = () => {
-      alert(`Send $${encodedTotal} to zelle@example.com\n\nItems: ${description}`);
-    };
+      if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>Your cart is empty.</p>";
+        totalContainer.textContent = "";
+        return;
+      }
+
+      cart.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          ${item.name} x${item.quantity} - $${item.price * item.quantity}
+          <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+        `;
+        cartContainer.appendChild(div);
+        total += item.price * item.quantity;
+      });
+
+      totalContainer.textContent = `Total: $${total.toFixed(2)}`;
+
+      // Add Proceed to Payment button below total
+      const proceedBtn = document.createElement("a");
+      proceedBtn.href = "payment.html";
+      proceedBtn.className = "proceed-btn";
+      proceedBtn.textContent = "Proceed to Payment";
+      totalContainer.appendChild(proceedBtn);
+    }
+
+    function removeFromCart(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    // Default to product page
+    showPage('product');
   </script>
 
 </body>
